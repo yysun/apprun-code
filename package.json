@@ -1,0 +1,27 @@
+{
+  "name": "apprun-code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "vite dev --port 8080",
+    "build": "vite build --outDir docs",
+    "apprun-code": "esbuild src/Play.tsx --outfile=dist/apprun-code.js --format=iife --bundle --minify",
+    "apprun-code:esm": "esbuild src/Play.tsx --outfile=dist/apprun-code.esm.js --format=esm --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "apprun": "^3.33.4",
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
