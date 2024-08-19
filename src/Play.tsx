@@ -97,7 +97,7 @@ export class Play extends Component {
   }
 
   rendered = ({ code }) => {
-    setTimeout(() => this.run("exec", code), 10);
+    setTimeout(() => this.run("exec", code), 100);
   }
 
   mounted = props => {
