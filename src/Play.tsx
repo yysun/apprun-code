@@ -2,8 +2,7 @@ import { app, Component } from 'apprun';
 
 import Editor from '@monaco-editor/react';
 import React from 'react';
-import ReactDOM from 'react-dom/client'
-app.use_react(React, ReactDOM);
+import ReactDOM from 'react-dom/client';
 
 const styles = (code_width) =>`
 apprun-code {
@@ -68,35 +67,42 @@ const code_html = code => `<!DOCTYPE html>
 </body>
 </html>`;
 
+const render = app.render;
+const h = app.h;
+const Fragment = app.Fragment;
 
 export class Play extends Component {
 
   view = ({ code, hide_code, code_width }) => {
+    app.use_react(React, ReactDOM);
     return <>
       <style>{styles(code_width)}</style>
       {hide_code ?
-        <div class="apprun-play">
-          <iframe class="preview" />
+        <div className="apprun-play">
+          <iframe className="preview" />
         </div>
         :
-        <div class="apprun-play">
-          <div class="col-editor" >
+        <div className="apprun-play">
+          <div className="col-editor" >
             <Editor
-              class="editor"
+              className="editor"
               defaultLanguage={code.startsWith("<html") ? "html" : "javascript"}
               defaultValue={code}
               options={{ minimap: { enabled: false } }}
               onChange = { code => this.run("exec", code) }
             />
           </div>
-          <div class="col-preview">
-            <iframe class="preview" />
+          <div className="col-preview">
+            <iframe className="preview" />
           </div>
         </div>}
     </>;
   }
 
   rendered = ({ code }) => {
+    app.render = render;
+    app.h = app.createElement = h;
+    app.Fragment = Fragment;
     setTimeout(() => this.run("exec", code), 100);
   }
 
@@ -144,10 +150,3 @@ export class Play extends Component {
 
 app.webComponent('apprun-code', Play);
 
-// global apprun shares with other modules even across scripts
-// set global app to null, so that will initialize a new app in window['app']
-// this way can avoid app in this modules being modified other modules
-window['app'] = null;
-
-// since a web component is defined in this module, no need to export it
-// export default Play;
