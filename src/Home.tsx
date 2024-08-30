@@ -1,7 +1,5 @@
 import { app, Component } from 'apprun';
 
-import './Play';
-
 export default class HomeComponent extends Component {
 
   state = `// Counter ($onclick)
@@ -15,12 +13,13 @@ app.start(document.body, state, view)
 `;
 
   view = state => <>
+    <h5>App (JSX)</h5>
     <pre>{state}</pre>
     <apprun-code code-width="50%"></apprun-code>
   </>;
 
   update = {
-    '#Home': state => state,
+    '#,#Home': state => state,
   };
 }
 

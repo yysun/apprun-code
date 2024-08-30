@@ -1,5 +1,4 @@
 import { app, Component } from 'apprun';
-import './Play'
 
 const html = `
 <html>
@@ -31,6 +30,7 @@ export default class ContactComponent extends Component {
 
   state = html
   view = state => <div>
+    <h5>HTML</h5>
     <pre>{state}</pre>
     <apprun-code style={{ height: '80vh' }}></apprun-code>
   </div>;

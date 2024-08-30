@@ -16,8 +16,11 @@ export default class AboutComponent extends Component {
 new Counter().start(document.body);`;
 
   view = state => <section>
+    <h5>Component (JSX)</h5>
     <pre>{state}</pre>
     <apprun-code style={{ border: "solid 1px red" }}></apprun-code>
+    <hr />
+    <h5>Hide Code</h5>
     <pre>{state}</pre>
     <apprun-code hide-code="true"></apprun-code>
   </section>;
