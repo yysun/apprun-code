@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-const styles = (code_width) =>`
+const styles = (code_width) => `
 apprun-code {
   display: block;
   height:350px;
@@ -44,7 +44,6 @@ const code_html = code => `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements/1.1.2/custom-elements.min.js"></script>
   <title>AppRun Playground</title>
   <style>
     body {
@@ -52,17 +51,49 @@ const code_html = code => `<!DOCTYPE html>
       margin: 2em;
     }
   </style>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typescript@5.3.3"></script>
   <script src="https://unpkg.com/apprun/dist/apprun-html.js"></script>
 </head>
 <body>
+<pre id="code" style="display:none">${code.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')}</pre>
 <script>
-  Babel.registerPlugin("d", [Babel.availablePlugins["proposal-decorators"], {legacy: true}]);
-  Babel.registerPlugin("c", [Babel.availablePlugins["proposal-class-properties"], {loose: true}]);
-  Babel.registerPlugin("b", [Babel.availablePlugins["proposal-private-methods"], {loose: true}]);
-</script>
-<script type="text/babel" data-plugins="d, c, b">
-  ${code}
+const code = document.getElementById('code').innerText;
+const compiled = ts.transpileModule(code, {
+  compilerOptions: {
+    "jsx": "react",
+    "jsxFactory": "app.h",
+    "jsxFragmentFactory": "app.Fragment",
+    "target": "es2018",
+  },
+  reportDiagnostics: true,
+});
+
+if (compiled.diagnostics && compiled.diagnostics.length) {
+  const pre = document.createElement('pre');
+  pre.style = 'font-size: 10px;';
+  pre.innerText = compiled.diagnostics.map(d => {
+    const start = d.start;
+    const end = d.start + d.length;
+    const line = code.substring(0, end).split('\\n').length;
+    const column = code.substring(0, end).split('\\n').pop().length;
+    return \`Line: \${line}, Column: \${column}, \${d.messageText}\`;
+  }).join('\\n');
+  document.body.appendChild(pre);
+} else {
+  window.onerror = function () {
+    const pre = document.createElement('pre');
+    pre.style = 'font-size: 10px;';
+    pre.innerText = compiled.outputText;;
+    document.body.appendChild(pre);
+  };
+  const script = document.createElement('script');
+  script.text = compiled.outputText;
+  document.body.appendChild(script);
+}
 </script>
 </body>
 </html>`;
@@ -89,7 +120,7 @@ export class Play extends Component {
               defaultLanguage={code.startsWith("<html") ? "html" : "javascript"}
               defaultValue={code}
               options={{ minimap: { enabled: false } }}
-              onChange = { code => this.run("exec", code) }
+              onChange={code => this.run("exec", code)}
             />
           </div>
           <div className="col-preview">
@@ -130,7 +161,7 @@ export class Play extends Component {
   }
 
   update = {
-    exec: ({element}, code) => {
+    exec: ({ element }, code) => {
       let iframe = element.querySelector('.preview');
       if (!iframe) return;
       const iframe_clone = iframe.cloneNode();
