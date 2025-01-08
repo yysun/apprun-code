@@ -6,19 +6,17 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "vite dev --port 8080",
-    "build": "vite build --outDir docs",
-    "apprun-code": "esbuild src/Play.tsx --outfile=dist/apprun-code.js --format=iife --bundle --minify",
-    "apprun-code:esm": "esbuild src/Play.tsx --outfile=dist/apprun-code.esm.js --format=esm --minify"
+    "start": "vite dev",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "apprun": "^3.33.7",
-    "vite": "^5.4.2"
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "apprun": "3.33.9",
+    "vite": "^6.0.7"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",

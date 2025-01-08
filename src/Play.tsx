@@ -38,6 +38,16 @@ apprun-code {
 }
 `;
 
+const encodeHTML = code => {
+  return code.replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#039;');
+}
+
+import apprun from './lib/apprun-html.js?raw';
+
 const code_html = code => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,15 +61,13 @@ const code_html = code => `<!DOCTYPE html>
       margin: 2em;
     }
   </style>
+  <script>
+  ${apprun}
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/typescript@5.3.3"></script>
-  <script src="https://unpkg.com/apprun/dist/apprun-html.js"></script>
 </head>
 <body>
-<pre id="code" style="display:none">${code.replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')}</pre>
+<pre id="code" style="display:none">${encodeHTML(code)}</pre>
 <script>
 const code = document.getElementById('code').innerText;
 const compiled = ts.transpileModule(code, {
@@ -180,4 +188,3 @@ export class Play extends Component {
 }
 
 app.webComponent('apprun-code', Play);
-
