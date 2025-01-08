@@ -2,20 +2,28 @@ import { app, Component } from 'apprun';
 
 export default class HomeComponent extends Component {
 
-  state = `// Counter ($onclick)
-const state = 0;
-const view = state => <div>
-  <h1>{state}</h1>
-  <button $onclick={state => state - 1}>+1</button>
-  <button $onclick={state => state + 1}>+1</button>
-</div>;
-app.start(document.body, state, view)
+  state = `
+  async function* getComic() {
+    yield { loading: true };
+    const response = await fetch('https://my-xkcd-api.glitch.me');
+    const comic = await response.json();
+    yield { comic };
+  }
+
+  const state = {};
+  const view = state => <>
+    <div><button $onclick=\{getComic}>fetch ...</button></div>
+    {state.loading && <div>loading ... </div>}
+    {state.comic && <img src={state.comic.img} />}
+  </>;  
+
+  app.start(document.body, state, view);
 `;
 
   view = state => <>
     <h5>App (JSX)</h5>
     <pre>{state}</pre>
-    <apprun-code code-width="50%"></apprun-code>
+    <apprun-code></apprun-code>
   </>;
 
   update = {

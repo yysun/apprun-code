@@ -20,9 +20,9 @@ new Counter().start(document.body);`;
     <pre>{state}</pre>
     <apprun-code style={{ border: "solid 1px red" }}></apprun-code>
     <hr />
-    <h5>Hide Code</h5>
+    <h5>Preview Only</h5>
     <pre>{state}</pre>
-    <apprun-code hide-code="true"></apprun-code>
+    <apprun-code style={{ border: "solid 1px red" }} hide-code="true"></apprun-code>
   </section>;
 
   update = {

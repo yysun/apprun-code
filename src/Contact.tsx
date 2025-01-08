@@ -10,8 +10,8 @@ const html = `
       view = state => {
         return html\`<div>
           <h1>\${state}</h1>
-          <button @click=\${ () => this.run("-1") }>-1</button>
-          <button @click=\${ () => this.run("+1") }>+1</button>
+          <button @click=\${run("-1")}>-1</button>
+          <button @click=\${run("+1")}>+1</button>
         </div>\`;
       };
       update = {
