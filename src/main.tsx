@@ -1,13 +1,14 @@
-import './Play';
-
 import app from 'apprun';
 import Home from './Home';
 import About from './About';
 import Contact from './Contact';
 import Layout from './Layout';
 
-const root = document.getElementById('root');
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// app.use_react(React, ReactDOM);
 
+const root = document.getElementById('root');
 app.render(root, <Layout />);
 
 const element = 'my-app';

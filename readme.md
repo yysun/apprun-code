@@ -40,5 +40,5 @@ You can also completely hide the source code, just to demo the code.
 
 * Use _npm start_ to start the dev server
 * Use _npm run build_ to build the demo
-* Use _npm run apprun-code_ to build the web component
+* Use _npm run build:lib_ to build the web component
 
