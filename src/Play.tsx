@@ -46,7 +46,7 @@ const encodeHTML = code => {
   .replace(/'/g, '&#039;');
 }
 
-import apprun from './lib/apprun-html.js?raw';
+import apprun from '../node_modules/apprun/dist/apprun-html.js?raw';
 
 const code_html = code => `<!DOCTYPE html>
 <html lang="en">

@@ -26,7 +26,7 @@ new Counter().start(document.body);`;
   </section>;
 
   update = {
-    '#About': state => state,
+    '/About': state => state,
   };
 }
 

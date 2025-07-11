@@ -36,7 +36,7 @@ export default class ContactComponent extends Component {
   </div>;
 
   update = {
-    '#Contact': state => state,
+    '/Contact': state => state,
   };
 
 }

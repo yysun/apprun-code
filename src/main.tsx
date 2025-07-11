@@ -15,5 +15,3 @@ const element = 'my-app';
 new Home().start(element);
 new About().mount(element);
 new Contact().start(element);
-
-app.run('#Home');
