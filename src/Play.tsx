@@ -45,7 +45,6 @@ const encodeHTML = code => {
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#039;');
 }
-
 import apprun from '../node_modules/apprun/dist/apprun-html.js?raw';
 
 const code_html = code => `<!DOCTYPE html>
@@ -105,6 +104,7 @@ if (compiled.diagnostics && compiled.diagnostics.length) {
 </script>
 </body>
 </html>`;
+app.on('/', () => { });
 
 const render = app.render;
 const h = app.h;
